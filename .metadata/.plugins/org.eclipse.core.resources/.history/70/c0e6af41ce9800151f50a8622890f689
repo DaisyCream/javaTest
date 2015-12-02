@@ -1,0 +1,62 @@
+package test02;
+
+
+
+public class Sort {
+	public static void main(String[] args){
+		int[] array = createArray(10);
+		initSort(array);
+	}
+	
+	public static boolean isEmpty(int[] n){
+		if(n == null || n.length == 0){
+			return true;
+		}
+		else 
+			return false;
+	}
+	
+	public static void initSort(int[] n){
+		if(isEmpty(n)){
+			return;
+		}
+		quickSort(n,0,n.length-1);
+	}
+	
+	public static void quickSort(int[] n,int r,int h){
+		if(isEmpty(n)){
+			return;
+		}
+		if(r<h){
+			int tmp = sort(n,r,h);
+			quickSort(n,r,tmp-1);
+			quickSort(n,tmp+1,h);
+		}
+	} 
+	
+	public static int sort(int[] array,int l,int r){
+		int tmp = array[l];
+		while(l<r){
+			while(array[r]>tmp&&l<r)
+				r++;
+			if(l<r){
+				array[l] = array[r];
+			}
+			while(array[l]<tmp&&l<r)
+				l++;
+			if(l<r){
+				array[r] = array[l];
+			}
+		}
+		array[l] = tmp;
+		return l;
+	}
+	
+	public static int[] createArray(int num){
+		int[] array = new int[num];
+		for(int i=0;i<array.length;i++){
+			array[i] = (int)(Math.random()*100);
+		}
+		return array;
+	}
+}

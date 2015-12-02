@@ -1,0 +1,79 @@
+package test02;
+
+import java.lang.reflect.Array;
+
+public class Mergesort {
+	public static void main(String[] args){
+		int[] array = new int[8];
+		for(int i=0;i<array.length;i++){
+			array[i] = (int)(Math.random()*100);
+		}
+		System.out.println(toString(array));
+		mergeSort(array);
+		System.out.println(toString(array));
+	}
+	
+	public static void mergeSort(int[] A){
+		if(A.length/2>0){
+			 int[] B = new int[A.length/2];
+			 int[] C = new int[A.length/2];
+			 copyArray(B,A,0,A.length/2);
+			 copyArray(C,A,A.length/2,A.length);
+			 
+			 mergeSort(B);
+			 System.out.println(toString(B)+"-------1");
+			 mergeSort(C);
+			 System.out.println(toString(C)+"-------2");
+			 Merge(B,C,A);
+			 System.out.println(toString(A)+"-------3");
+		}
+	} 
+	
+	public static int[] Merge(int[] array1,int[] array2,int[] arrayMain){
+		int i = 0;
+		int j = 0;
+		int count = 0;
+		while(i<array1.length&&j<array2.length){
+			if(array1[i]<array2[j]){
+				arrayMain[count] = array1[i];
+				i++;
+			}
+			else{
+				arrayMain[count] = array2[j];
+				j++;
+			}
+			count++;
+			
+			if(i==array1.length){
+				for(;count<arrayMain.length;count++,j++){
+					arrayMain[count] = array2[j];
+				}
+			}
+			else if(j==array2.length){
+				for(;count<arrayMain.length;count++,i++){
+					arrayMain[count] = array1[i];
+				}
+			}
+			
+		}
+		return arrayMain;
+	}
+	
+	public static int[] copyArray(int[] int1,int[] int2,int form,int to){
+		int init = 0;
+		for(int i=form;i<to;i++){
+			int1[init] = int2[i];
+			init++;
+		}
+		return int1;
+	}
+	
+	public static String toString(int[] array){
+		String str = "";
+		for(int key: array){
+			str+=key+" ";
+		}
+		return str;
+	}
+	
+}
